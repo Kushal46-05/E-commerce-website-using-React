@@ -1,0 +1,11 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Optional: if you're using native <label> outside MUI */
+label {
+  font-weight: 500;
+  color: #212121;
+}

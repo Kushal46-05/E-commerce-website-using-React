@@ -1,0 +1,26 @@
+.column {
+  min-width: 150px;
+  font-family: 'Times New Roman', Times, serif;
+
+  h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+}

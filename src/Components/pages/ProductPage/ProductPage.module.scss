@@ -1,0 +1,118 @@
+.page {
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.breadcrumbWrapper {
+  margin-bottom: -2rem;
+  font-size: 0.875rem;
+  color: #555;
+
+  a {
+    color: #555;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.hero {
+  display: flex;
+  gap: 4rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.left {
+  flex: 1;
+  max-width: 50%;
+}
+
+.right {
+  flex: 1;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mainImage {
+  width: 100%;
+  max-height: 650px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.price {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.discounted {
+  color: #000;
+  font-weight: bold;
+}
+
+.original {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.offer {
+  color: #ff4d4d;
+  font-weight: 600;
+}
+
+.description {
+  color: #333;
+}
+
+.tabs {
+  margin-top: 4rem;
+}
+
+.centeredContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  text-align: center;
+}
+.ratingBlock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.ratingText {
+  color: #666;
+  font-weight: 500;
+}
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+  gap: 10px;
+
+  // Optional: responsive stacking
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: stretch;
+
+    button {
+      margin-left: 0;
+      margin-top: 1rem;
+      width: 100%;
+    }
+  }
+}
+

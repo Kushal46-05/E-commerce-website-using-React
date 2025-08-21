@@ -1,0 +1,41 @@
+.wrapper {
+  margin-top: 2rem;
+  
+}
+
+.label {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #222;
+  
+}
+
+.grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.option {
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  width: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.2s ease;
+  text-align: center;
+
+  &:hover {
+    border-color: #000;
+    background-color: #000;
+    color: #ffffff;
+  }
+}
+
+.active {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}

@@ -1,0 +1,30 @@
+.section {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+.viewMore {
+  
+  margin-top: 2rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-color: #000 !important;
+  color: #000 !important;
+
+  &:hover {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+}

@@ -1,0 +1,33 @@
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  font-weight: 700;
+  color: #222;
+}
+
+.price {
+  color: #444;
+}
+
+.category {
+  color: #999;
+  text-transform: uppercase;
+}

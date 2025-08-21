@@ -1,0 +1,88 @@
+.testimonialSection {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.heading {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.arrowLeft,
+.arrowRight {
+  font-size: 2rem;
+  color: #333;
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  svg {
+    font-size: 2rem;
+  }
+}
+
+.cardsWrapper {
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+  justify-content: center;
+}
+
+.card {
+  width: 250px;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fff;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  opacity: 1;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.center {
+  transform: scale(1);
+  filter: none;
+}
+
+.side {
+  transform: scale(0.95);
+  filter: blur(2px);
+  opacity: 0.7;
+}
+
+.hidden {
+  display: none;
+}
+
+.stars {
+  color: gold;
+  font-size: 1.2rem;
+}
+
+.name {
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.verified {
+  color: green;
+  font-size: 0.9rem;
+}
+
+.text {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #444;
+}

@@ -1,0 +1,32 @@
+.wrapper {
+  margin-top: 2rem;
+}
+
+.label {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s ease;
+
+  &:hover {
+    border-color: #aaa;
+  }
+}
+
+.active {
+  border-color: #000;
+}

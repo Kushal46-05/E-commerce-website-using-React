@@ -1,0 +1,48 @@
+.gridSection {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.heading {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+
+.viewMoreWrapper {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.viewMore {
+  background-color: #000 !important;
+  color: #fff !important;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: none;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  border: none;
+
+  &:hover {
+    background-color: #333 !important;
+  }
+}
+
+/* Optional: Responsive tuning */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}

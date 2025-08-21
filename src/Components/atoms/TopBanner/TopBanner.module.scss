@@ -1,0 +1,53 @@
+.banner {
+  background-color: #000;
+  color: #fff;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.875rem;
+  position: relative;
+  top: 0;
+  z-index: 1001;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+  padding: 0 1rem;
+  text-align: center;
+
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+    height: auto;
+    padding: 0.5rem 1rem;
+    flex-direction: column;
+  }
+}
+
+.closing {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+
+  @media (max-width: 480px) {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+.link {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bolder;
+  color: #fff; // force white
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    margin-top: 0.5rem;
+  }
+}
