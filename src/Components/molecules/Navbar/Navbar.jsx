@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -8,6 +8,7 @@ import {
   InputBase,
   useMediaQuery,
   useTheme,
+  Badge,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -15,7 +16,8 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { products } from '../../../Data/Product'; // ✅ Import product data
+import { products } from '../../../Data/Product';
+import { useCart } from '../../../context/CartContext';
 import styles from './Navbar.module.scss';
 
 const NavbarComp = () => {
@@ -25,6 +27,7 @@ const NavbarComp = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
+  const { cart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -33,33 +36,32 @@ const NavbarComp = () => {
   }, []);
 
   const handleSearch = (e) => {
-  if (e.key === 'Enter') {
-    const foundProduct = products.find(p =>
-      p.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    if (e.key === 'Enter') {
+      const foundProduct = products.find(p =>
+        p.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
 
-    if (foundProduct) {
-      navigate(`/product/${foundProduct.id}`);
-    } else {
-      navigate('/404');
+      if (foundProduct) {
+        navigate(`/product/${foundProduct.id}`);
+      } else {
+        navigate('/404');
+      }
+
+      setSearchTerm('');
     }
-
-    setSearchTerm(''); // ✅ Clear input after search
-  }
-};
-
+  };
 
   const scrollToNewArrivals = () => {
-    navigate('/home'); // ✅ Navigate first
+    navigate('/home');
     setTimeout(() => {
       const section = document.getElementById('new-arrivals');
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
       }
-    }, 100); // Delay to ensure DOM is ready
+    }, 100);
   };
 
-  
+  const cartCount = cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
   return (
     <AppBar
@@ -71,13 +73,13 @@ const NavbarComp = () => {
       <Toolbar className={styles.toolbar}>
         <Box className={styles.left}>
           <Box className={styles.logo}>
-            <Link to="/home" className={styles.logoLink}>SHOP.CO</Link> {/* ✅ Logo link */}
+            <span onClick={() => navigate('/home')} className={styles.logoLink}>SHOP.CO</span>
           </Box>
           <ul className={styles.links}>
-            <li><Link to="/shop">Shop</Link></li>
-            <li><Link to="/sale">On Sale</Link></li>
-            <li><span onClick={scrollToNewArrivals} className={styles.link}>New Arrivals</span></li> {/* ✅ Scroll trigger */}
-            <li><Link to="/brands">Brands</Link></li>
+            <li><span onClick={() => navigate('/shop')} className={styles.link}>Shop</span></li>
+            <li><span onClick={() => navigate('/sale')} className={styles.link}>On Sale</span></li>
+            <li><span onClick={scrollToNewArrivals} className={styles.link}>New Arrivals</span></li>
+            <li><span onClick={() => navigate('/brands')} className={styles.link}>Brands</span></li>
           </ul>
         </Box>
 
@@ -89,7 +91,7 @@ const NavbarComp = () => {
               className={styles.input}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={handleSearch} // ✅ Search trigger
+              onKeyDown={handleSearch}
             />
             <IconButton
               className={styles.menuToggle}
@@ -102,8 +104,14 @@ const NavbarComp = () => {
           </Box>
 
           <Box className={styles.icons}>
-            <ShoppingCartOutlinedIcon />
-            <AccountCircleOutlinedIcon />
+            <IconButton onClick={() => navigate('/cart')} size="large">
+              <Badge badgeContent={cartCount} color="primary" showZero>
+                <ShoppingCartOutlinedIcon />
+              </Badge>
+            </IconButton>
+            <IconButton size="large">
+              <AccountCircleOutlinedIcon />
+            </IconButton>
           </Box>
         </Box>
       </Toolbar>
@@ -111,15 +119,21 @@ const NavbarComp = () => {
       {/* Mobile dropdown */}
       <Box className={`${styles.dropdown} ${menuOpen ? styles.open : ''}`}>
         <ul className={styles.links}>
-          <li><Link to="/shop">Shop</Link></li>
-          <li><Link to="/sale">On Sale</Link></li>
+          <li><span onClick={() => navigate('/shop')} className={styles.link}>Shop</span></li>
+          <li><span onClick={() => navigate('/sale')} className={styles.link}>On Sale</span></li>
           <li><span onClick={scrollToNewArrivals} className={styles.link}>New Arrivals</span></li>
-          <li><Link to="/brands">Brands</Link></li>
+          <li><span onClick={() => navigate('/brands')} className={styles.link}>Brands</span></li>
         </ul>
 
         <Box className={styles.icons}>
-          <ShoppingCartOutlinedIcon />
-          <AccountCircleOutlinedIcon />
+          <IconButton onClick={() => navigate('/cart')} size="large">
+            <Badge badgeContent={cartCount} color="primary" showZero>
+              <ShoppingCartOutlinedIcon />
+            </Badge>
+          </IconButton>
+          <IconButton size="large">
+            <AccountCircleOutlinedIcon />
+          </IconButton>
         </Box>
       </Box>
     </AppBar>

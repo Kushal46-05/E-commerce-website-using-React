@@ -1,0 +1,19 @@
+.sidebar {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.filterGroup {
+  margin-bottom: 1.5rem;
+
+  .MuiTypography-subtitle1 {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+}

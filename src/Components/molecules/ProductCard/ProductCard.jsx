@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
 
 const ProductCard = ({ id, title, price, rating, image }) => {
   const renderStars = () => {
-    const fullStars = Math.floor(rating);
-    const halfStar = rating % 1 >= 0.5;
+    const safeRating = typeof rating === 'number' && rating >= 0 ? Math.min(rating, 5) : 0;
+    const fullStars = Math.floor(safeRating);
+    const halfStar = safeRating % 1 >= 0.5;
     const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
     return (
@@ -40,7 +41,9 @@ const ProductCard = ({ id, title, price, rating, image }) => {
           <Typography variant="body2" className={styles.price}>
             {price}
           </Typography>
-          <Box className={styles.rating}>{renderStars()}</Box>
+          <Box className={styles.rating}>
+            {renderStars()}
+          </Box>
         </CardContent>
       </Card>
     </Link>

@@ -1,0 +1,24 @@
+.page {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.breadcrumbWrapper {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.grid {
+  margin-top: 1rem;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: center;
+}

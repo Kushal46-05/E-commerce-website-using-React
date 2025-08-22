@@ -1,0 +1,15 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+
+  .MuiPaginationItem-root {
+    font-weight: 600;
+    color: #000;
+
+    &.Mui-selected {
+      background-color: #000;
+      color: #fff;
+    }
+  }
+}
