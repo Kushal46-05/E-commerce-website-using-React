@@ -11,6 +11,7 @@ import NotFoundPage from './Components/pages/404/404';
 import CategoryDisplay from './Components/pages/CategoryDisplay/CategoryDisplay';
 import CartPage from './Components/pages/CartPage/CartPage';
 import ShopPage from './Components/pages/ShopPage/ShopPage';
+import CheckoutPage from './Components/pages/CheckoutPage/CheckoutPage';
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/cart" element={<CartPage />} /> {/* ✅ NEW */}
           <Route path="/404" element={<NotFoundPage />} />
            <Route path="/shop" element={<ShopPage />} />
+           <Route path="/checkout" element={<CheckoutPage />} />
 
           {/* Catch-all route */}
           <Route path="*" element={<Navigate to="/404" replace />} />
