@@ -166,7 +166,7 @@ const CartPage = () => {
                             />
                             <Button
                                 sx={ {
-                                    backgroundColor: '#1976d2',
+                                    backgroundColor: '#000000ff',
                                     color: 'white',
                                     borderRadius: '8px',
                                     padding: '0.5rem 1rem',
@@ -175,7 +175,8 @@ const CartPage = () => {
                                     textTransform: 'none',
                                     boxShadow: 'none',
                                     '&:hover': {
-                                        backgroundColor: '#1565c0',
+                                        backgroundColor: '#ffffffff',
+                                        border: '1px black solid'
                                     },
                                 } }
                             >

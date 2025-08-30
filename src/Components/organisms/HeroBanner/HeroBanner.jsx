@@ -2,8 +2,10 @@ import { Box, Typography, Container } from '@mui/material';
 import styles from './HeroBanner.module.scss';
 import heroImg from '../../../assets/product/heroImg.jpg';
 import Button from '../../atoms/Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function HeroBanner() {
+   const navigate = useNavigate();
   return (
     <Box component="section" className={ styles.hero }>
       <Container maxWidth="xl" disableGutters>
@@ -18,7 +20,7 @@ export default function HeroBanner() {
             </Typography>
 
             <Button
-              href="/shop"
+              onClick={() => navigate('/shop')}
               aria-label="Shop clothing now"
               sx={ {
                 

@@ -1,4 +1,4 @@
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import { products } from '../../../Data/Product';
 import { reviews as reviewData } from '../../../Data/Review';
 import {
@@ -25,12 +25,13 @@ import styles from './ProductPage.module.scss';
 
 const ProductPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { dispatch } = useCart();
 
   const product = products.find(p => p.id === parseInt(id));
   const productReviews = reviewData[product?.id] || [];
-  const [tabIndex, setTabIndex] = useState(1);
 
+  const [tabIndex, setTabIndex] = useState(1);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -58,7 +59,7 @@ const ProductPage = () => {
         price: product.price,
         size: selectedSize,
         color: selectedColor,
-        quantity: quantity
+        quantity: quantity || 1, // Defensive fallback
       }
     });
 
@@ -70,12 +71,8 @@ const ProductPage = () => {
       {/* Breadcrumbs */}
       <Box className={styles.breadcrumbWrapper}>
         <Breadcrumbs separator="›" aria-label="breadcrumb">
-          <Link component={RouterLink} to="/" underline="hover" color="inherit">
-            Home
-          </Link>
-          <Link component={RouterLink} to="/shop" underline="hover" color="inherit">
-            Shop
-          </Link>
+          <Link component={RouterLink} to="/" underline="hover" color="inherit">Home</Link>
+          <Link component={RouterLink} to="/shop" underline="hover" color="inherit">Shop</Link>
           <Typography color="text.primary">{product.title}</Typography>
         </Breadcrumbs>
       </Box>
@@ -97,18 +94,12 @@ const ProductPage = () => {
 
           {/* Dynamic Pricing */}
           <Box className={styles.price}>
-            <Typography variant="h6" className={styles.discounted}>
-              {product.price}
-            </Typography>
+            <Typography variant="h6" className={styles.discounted}>{product.price}</Typography>
             {product.originalPrice && (
-              <Typography variant="body2" className={styles.original}>
-                {product.originalPrice}
-              </Typography>
+              <Typography variant="body2" className={styles.original}>{product.originalPrice}</Typography>
             )}
             {product.discountPercent && (
-              <Typography variant="body2" className={styles.offer}>
-                {product.discountPercent}% OFF
-              </Typography>
+              <Typography variant="body2" className={styles.offer}>{product.discountPercent}% OFF</Typography>
             )}
           </Box>
 
@@ -130,37 +121,67 @@ const ProductPage = () => {
 
           <Box className={styles.actionRow}>
             <QuantitySelector
-              value={quantity}
+              defaultValue={1}
+              min={1}
+              max={10}
               onChange={setQuantity}
             />
 
-            <Button
-              className={styles.addToCartButton}
-              onClick={handleAddToCart}
-              sx={{
-                backgroundColor: 'black',
-                color: 'white',
-                borderRadius: '50px',
-                width: '250px',
-                padding: '0.75rem 1.5rem',
-                fontWeight: 600,
-                fontSize: '1rem',
-                marginTop: '50px',
-                border: 'none',
-                transition: 'all 0.3s ease',
-                height: '40px',
-                '&:hover': {
-                  backgroundColor: 'white',
-                  color: 'black',
-                  border: '2px solid black',
-                },
-                '@media (max-width:768px)': {
-                  width: '100%',
-                },
-              }}
-            >
-              Add to Cart
-            </Button>
+            {!addedToCart ? (
+              <Button
+                className={styles.addToCartButton}
+                onClick={handleAddToCart}
+                sx={{
+                  backgroundColor: 'black',
+                  color: 'white',
+                  borderRadius: '50px',
+                  width: '250px',
+                  padding: '0.75rem 1.5rem',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  marginTop: '50px',
+                  border: 'none',
+                  transition: 'all 0.3s ease',
+                  height: '40px',
+                  '&:hover': {
+                    backgroundColor: 'white',
+                    color: 'black',
+                    border: '2px solid black',
+                  },
+                  '@media (max-width:768px)': {
+                    width: '100%',
+                  },
+                }}
+              >
+                Add to Cart
+              </Button>
+            ) : (
+              <Button
+                className={styles.addToCartButton}
+                onClick={() => navigate('/cart')}
+                sx={{
+                  backgroundColor: '#4caf50',
+                  color: 'white',
+                  borderRadius: '50px',
+                  width: '250px',
+                  padding: '0.75rem 1.5rem',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  marginTop: '50px',
+                  border: 'none',
+                  transition: 'all 0.3s ease',
+                  height: '40px',
+                  '&:hover': {
+                    backgroundColor: '#388e3c',
+                  },
+                  '@media (max-width:768px)': {
+                    width: '100%',
+                  },
+                }}
+              >
+                Go to Cart
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>
@@ -181,11 +202,7 @@ const ProductPage = () => {
               </Typography>
             </Box>
           )}
-
-          {tabIndex === 1 && (
-            <ReviewSection reviews={productReviews} />
-          )}
-
+          {tabIndex === 1 && <ReviewSection reviews={productReviews} />}
           {tabIndex === 2 && (
             <Box className={styles.centeredContent}>
               <Typography variant="body1">
@@ -207,7 +224,7 @@ const ProductPage = () => {
         autoHideDuration={3000}
         onClose={() => setAddedToCart(false)}
         message="Added to cart!"
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       />
 
       {/* Snackbar Error */}
@@ -216,7 +233,7 @@ const ProductPage = () => {
         autoHideDuration={3000}
         onClose={() => setErrorMessage('')}
         message={errorMessage}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         ContentProps={{ sx: { backgroundColor: '#d32f2f' } }}
       />
     </Box>

@@ -9,10 +9,42 @@ const initialState = {
 const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TO_CART': {
-      const exists = state.cart.find(item => item.id === action.payload.id);
+      const { id, size, color, quantity } = action.payload;
+
+      const existingIndex = state.cart.findIndex(
+        item => item.id === id && item.size === size && item.color === color
+      );
+
+      if (existingIndex !== -1) {
+        const updatedCart = [...state.cart];
+        updatedCart[existingIndex] = {
+          ...updatedCart[existingIndex],
+          quantity: updatedCart[existingIndex].quantity + quantity,
+        };
+        return {
+          ...state,
+          cart: updatedCart,
+        };
+      } else {
+        return {
+          ...state,
+          cart: [...state.cart, { ...action.payload }],
+        };
+      }
+    }
+
+    case 'UPDATE_QUANTITY': {
+      const { id, size, color, quantity } = action.payload;
+
+      const updatedCart = state.cart.map(item =>
+        item.id === id && item.size === size && item.color === color
+          ? { ...item, quantity }
+          : item
+      );
+
       return {
         ...state,
-        cart: exists ? state.cart : [...state.cart, action.payload],
+        cart: updatedCart,
       };
     }
 
@@ -37,6 +69,7 @@ const cartReducer = (state, action) => {
 
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+
   return (
     <CartContext.Provider value={{ cart: state.cart, dispatch }}>
       {children}

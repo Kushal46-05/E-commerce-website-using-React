@@ -152,3 +152,14 @@
     align-self: flex-end;
   }
 }
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.value {
+  min-width: 32px;
+  text-align: center;
+  font-weight: 500;
+}

@@ -24,6 +24,7 @@ const NavbarComp = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
@@ -48,7 +49,23 @@ const NavbarComp = () => {
       }
 
       setSearchTerm('');
+      setSuggestions([]);
     }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    if (value.trim() === '') {
+      setSuggestions([]);
+      return;
+    }
+
+    const filtered = products.filter(p =>
+      p.title.toLowerCase().includes(value.toLowerCase())
+    );
+    setSuggestions(filtered.slice(0, 5));
   };
 
   const scrollToNewArrivals = () => {
@@ -90,7 +107,7 @@ const NavbarComp = () => {
               placeholder="Search for products..."
               className={styles.input}
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleInputChange}
               onKeyDown={handleSearch}
             />
             <IconButton
@@ -101,6 +118,24 @@ const NavbarComp = () => {
             >
               {menuOpen ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
+
+            {suggestions.length > 0 && (
+              <Box className={styles.suggestionBox}>
+                {suggestions.map(product => (
+                  <Box
+                    key={product.id}
+                    className={styles.suggestionItem}
+                    onClick={() => {
+                      navigate(`/product/${product.id}`);
+                      setSearchTerm('');
+                      setSuggestions([]);
+                    }}
+                  >
+                    {product.title}
+                  </Box>
+                ))}
+              </Box>
+            )}
           </Box>
 
           <Box className={styles.icons}>
@@ -116,7 +151,6 @@ const NavbarComp = () => {
         </Box>
       </Toolbar>
 
-      {/* Mobile dropdown */}
       <Box className={`${styles.dropdown} ${menuOpen ? styles.open : ''}`}>
         <ul className={styles.links}>
           <li><span onClick={() => navigate('/shop')} className={styles.link}>Shop</span></li>

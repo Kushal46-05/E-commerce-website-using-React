@@ -7,7 +7,7 @@
   height: 100%;
   text-align: center;
   width: 100%;
-  max-width: 280px; // Controls card width inside grid
+  max-width: 500px; // Controls card width inside grid
 
   &:hover {
     transform: translateY(-4px);
@@ -15,8 +15,8 @@
 }
 
 .image {
-  height: 220px;
-  object-fit: cover;
+  height: 300px;
+  object-fit: contain;
   border-radius: 6px;
   width: 100%;
 }
@@ -58,7 +58,9 @@
 .link {
   text-decoration: none;
   display: block;
-  width: 100%;
-  max-width: 280px; // Match card width
+  width: 400px;
+  height: 400px;
+  max-width: 250px; // Match card width
+  max-height: 100%;
   margin: 0 auto;
 }
